@@ -1,0 +1,32 @@
+.body_cus{
+    background: #6af506;
+    padding:1%;
+}
+.protest-guerrilla-regular {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.dosis{
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
+.crd_cus{
+    padding: 1%;
+}
+.hed_cus{
+    padding: 0.5%;
+    text-align: left;
+}
+.card-text{
+    text-align: center;
+}
+.center_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

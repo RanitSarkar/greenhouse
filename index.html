@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="stylesheet" href="../static/styles.css">
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Protest+Guerrilla&display=swap" rel="stylesheet">
+        <!-- Import Firebase App module -->
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyD8do5201Ha8sRTvylklus5dL64XzT5hfo",
+          authDomain: "greenhouse-ea83f.firebaseapp.com",
+          databaseURL: "https://greenhouse-ea83f-default-rtdb.firebaseio.com",
+          projectId: "greenhouse-ea83f",
+          storageBucket: "greenhouse-ea83f.appspot.com",
+          messagingSenderId: "830727121592",
+          appId: "1:830727121592:web:46ae2f4c7dac0a6225224d"
+        };
+  
+        // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  
+        // Retrieve data from Firebase and update in real-time
+        function fetchDataRealtime() {
+          const db = getDatabase();
+          const sensorsRef = ref(db, 'sensors',);
+          onValue(sensorsRef, (snapshot) => {
+            const sensorData = snapshot.val();
+            // Update temperature value
+            document.getElementById('temperature').textContent = `Temperature: ${sensorData.temp}`;
+            // Update light intensity value
+            document.getElementById('lightIntensity').textContent = `Light Intensity: ${sensorData.light_int}`;
+            // Update soil moisture value
+            document.getElementById('soilMoisture').textContent = `Soil Moisture: ${sensorData.soil_moisture}`;
+          });
+          const appliancesRef = ref(db, 'appliances');
+          onValue(appliancesRef, (snapshot) => {
+            const appliancesData = snapshot.val();
+            const bulbStatus = appliancesData.bulb === 1 ? "ON" : "OFF";
+            // Update bulb value
+            document.getElementById('bulbStatus').textContent = `Operational Status: ${bulbStatus}`;
+            const fanStatus = appliancesData.fan === 1 ? "ON" : "OFF";
+            // Update fan value
+            document.getElementById('fanStatus').textContent = `Operational Status: ${fanStatus}`;
+            const pumpStatus = appliancesData.pump === 1 ? "ON" : "OFF";
+            // Update pump value
+            document.getElementById('pumpStatus').textContent = `Operational Status: ${pumpStatus}`;
+          });
+        }
+        // Call fetchDataRealtime function when the page is loaded
+        window.onload = fetchDataRealtime;
+        document.getElementById('FanOff').addEventListener('click', function() {
+          const db = getDatabase();
+          const FanRef = ref(db, 'appliances/fan');
+          set(FanRef, 0); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('FanOn').addEventListener('click', function() {
+          const db = getDatabase();
+          const FanRef = ref(db, 'appliances/fan');
+          set(FanRef, 1); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('BulbOn').addEventListener('click', function() {
+          const db = getDatabase();
+          const bulbRef = ref(db, 'appliances/bulb');
+          set(bulbRef, 1); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('BulbOff').addEventListener('click', function() {
+          const db = getDatabase();
+          const bulbRef = ref(db, 'appliances/bulb');
+          set(bulbRef, 0); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('PumpOn').addEventListener('click', function() {
+          const db = getDatabase();
+          const pumpRef = ref(db, 'appliances/pump');
+          set(pumpRef, 1); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('PumpOff').addEventListener('click', function() {
+          const db = getDatabase();
+          const pumpRef = ref(db, 'appliances/pump');
+          set(pumpRef, 0); // Update bulb status to 1 (ON)
+        });
+
+      </script>
+    </head>
+
+    <body>
+        <header style="padding: 2%; font-family: Protest Guerrilla, sans-serif; font-weight: 500; font-style: normal;" >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light"
+                <div class="container-fluid" style="padding: 0.5%">
+                  <a class="navbar-brand" href="#"><img src="..\static\centurion_logo.png" alt="" width="40" height="50" class="d-inline-block align-text-top"> HOME</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Report</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </header>
+        <main class="body_cus dosis container-fluid">
+            <div class="container-fluid">
+                <div class="row dosis">
+                  <div class="col hed_cus" style="font-size: 2rem;">
+                    IOT BASED  <br> GREENHOUSE MONITORING SYSTEM
+                  </div>
+                  <div class="col" style="padding-left: 2%;">
+                    <img src="../static/plant.gif" height="200">
+                  </div>
+                </div>
+              </div>
+            <div class="row dosis" style="padding: 2rem;" >
+                <div class="col-lg-2 col-sm-4 crd_cus" >
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Temperature</h5>
+                      <img src="..\static\temp.gif" class="card-img-top" alt="...">
+                      <p style="text-align:center;" id="temperature"></p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Light Intensity</h5>
+                        <img src="..\static\intensity.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="lightIntensity"></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Soil Moisture</h5>
+                        <img src="..\static\moisture.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="soilMoisture"></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Fan Status</h5>
+                        <img src="..\static\fan.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="fanStatus"></p>
+                        <div class="center_btn" >
+                            <a id="FanOn" class="btn btn-success" style="padding-left:3%; padding-right:3%;"> ON </a>
+                            <a id="FanOff" class="btn btn-danger" style="margin-left: 10px;">OFF</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Bulb Status</h5>
+                        <img src="..\static\bulb.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="bulbStatus"></p>
+                        <div class="center_btn" >
+                          <a id="BulbOn" class="btn btn-success" style="padding-left:3%; padding-right:3%;"> ON </a>
+                          <a id="BulbOff" class="btn btn-danger" style="margin-left: 10px;">OFF</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Pump Status</h5>
+                        <img src="..\static\water_pump.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="pumpStatus"></p>
+                        <div class="center_btn" >
+                          <a id="PumpOn" class="btn btn-success" style="padding-left:3%; padding-right:3%;"> ON </a>
+                          <a id="PumpOff" class="btn btn-danger" style="margin-left: 10px;">OFF</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </main>
+        <footer>
+            <footer class="text-center text-dark" style="background-color: #f0f3f7;">
+              <!-- Grid container -->
+              <div class="container p-2 pb-0">
+                <!-- Section: CTA -->
+                <section class="">
+                  <p class="d-flex justify-content-center align-items-center">
+                    <span class="me-2">Register for free</span>
+                    <button data-mdb-ripple-init type="button" class="btn btn-outline-dark btn-rounded">
+                      Sign up!
+                    </button>
+                  </p>
+                </section>
+                <!-- Section: CTA -->
+              </div>
+              <!-- Grid container -->
+          
+              <!-- Copyright -->
+              <div class="text-center p-3" style="background-color: rgba(112, 106, 106, 0.2);">
+                © 2024 Copyright:
+                <a class="text-dark" href="https://www.linkedin.com/in/ranit-sarkar-83b295209/">Follow for more</a>
+              </div>
+              <!-- Copyright -->
+            </footer>
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
