@@ -51,6 +51,9 @@
             document.getElementById('lightIntensity').textContent = `Light Intensity: ${sensorData.light_int}`;
             // Update soil moisture value
             document.getElementById('soilMoisture').textContent = `Soil Moisture: ${sensorData.soil_moisture}`;
+            // Update soil moisture value
+            document.getElementById('humidity').textContent = `Humidity: ${sensorData.humidity}`;
+
           });
           const appliancesRef = ref(db, 'appliances');
           onValue(appliancesRef, (snapshot) => {
@@ -64,6 +67,9 @@
             const pumpStatus = appliancesData.pump === 1 ? "ON" : "OFF";
             // Update pump value
             document.getElementById('pumpStatus').textContent = `Operational Status: ${pumpStatus}`;
+            const foggerStatus = appliancesData.fogger === 1 ? "ON" : "OFF";
+            // Update bulb value
+            document.getElementById('foggerStatus').textContent = `Operational Status: ${foggerStatus}`;
           });
         }
         // Call fetchDataRealtime function when the page is loaded
@@ -98,6 +104,16 @@
           const pumpRef = ref(db, 'appliances/pump');
           set(pumpRef, 0); // Update bulb status to 1 (ON)
         });
+        document.getElementById('foggerOn').addEventListener('click', function() {
+          const db = getDatabase();
+          const pumpRef = ref(db, 'appliances/fogger');
+          set(pumpRef, 1); // Update bulb status to 1 (ON)
+        });
+        document.getElementById('foggerOff').addEventListener('click', function() {
+          const db = getDatabase();
+          const pumpRef = ref(db, 'appliances/fogger');
+          set(pumpRef, 0); // Update bulb status to 1 (ON)
+        });
 
       </script>
     </head>
@@ -121,6 +137,12 @@
                       <li class="nav-item">
                         <a class="nav-link" href="#">Report</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/about.html">About us</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -130,7 +152,7 @@
             <div class="container-fluid">
                 <div class="row dosis">
                   <div class="col hed_cus" style="font-size: 2rem;">
-                    IOT BASED  <br> GREENHOUSE MONITORING SYSTEM
+                    IoT BASED  <br> GREENHOUSE MONITORING & CONTROLLING SYSTEM
                   </div>
                   <div class="col" style="padding-left: 2%;">
                     <img src="../static/plant.gif" height="200">
@@ -144,7 +166,9 @@
                       <h5 class="card-title">Temperature</h5>
                       <img src="..\static\temp.gif" class="card-img-top" alt="...">
                       <p style="text-align:center;" id="temperature"></p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <div class="center_btn" >
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -154,7 +178,9 @@
                         <h5 class="card-title">Light Intensity</h5>
                         <img src="..\static\intensity.gif" class="card-img-top" alt="">
                         <p style="text-align:center;" id="lightIntensity"></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="center_btn" >
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -164,7 +190,9 @@
                         <h5 class="card-title">Soil Moisture</h5>
                         <img src="..\static\moisture.gif" class="card-img-top" alt="">
                         <p style="text-align:center;" id="soilMoisture"></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="center_btn" >
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -207,6 +235,32 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Relative humidity</h5>
+                        <img src="..\static\humidity.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" ></p>
+                        <p style="text-align:center;" id="humidity"></p>
+                        <div class="center_btn" >
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 crd_cus">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Fogger Status</h5>
+                        <img src="..\static\fogger.gif" class="card-img-top" alt="">
+                        <p style="text-align:center;" id="foggerStatus"></p>
+                        <div class="center_btn" >
+                          <a id="foggerOn" class="btn btn-success" style="padding-left:3%; padding-right:3%;"> ON </a>
+                          <a id="foggerOff" class="btn btn-danger" style="margin-left: 10px;">OFF</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
         </main>
         <footer>
@@ -214,30 +268,6 @@
             <footer class="text-center text-white" style="background-color: #041701">
               <!-- Grid container -->
               <div class="container">
-                <!-- Section: Links -->
-                <section class="mt-5">
-                  <!-- Grid row-->
-                  <div class="row text-center d-flex justify-content-center pt-5">
-                    <!-- Grid column -->
-                    <div class="col-md-2">
-                      <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!" class="text-white">About us</a>
-                      </h6>
-                    </div>
-                    <!-- Grid column -->
-          
-                    <!-- Grid column -->
-                    <div class="col-md-2">
-                      <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!" class="text-white">Contact</a>
-                      </h6>
-                    </div>
-                    <!-- Grid column -->
-                  </div>
-                  <!-- Grid row-->
-                </section>
-                <!-- Section: Links -->
-          
                 <hr class="my-5" />
           
                 <!-- Section: Text -->
