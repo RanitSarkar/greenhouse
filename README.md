@@ -9,7 +9,7 @@ Welcome to the Remote Control System for Greenhouse IOT Devices repository! This
 ## Features
 - Real-time monitoring and control of greenhouse parameters.
 - Intuitive web interface designed using HTML, CSS, and Bootstrap.
-- Backend functionality implemented with Flask for seamless integration.
+- Backend functionality implemented with Flask and Google Firebase for seamless integration.
 - Firebase utilized for real-time data synchronization between the web platform and IOT devices.
 
 ## Technologies Used
